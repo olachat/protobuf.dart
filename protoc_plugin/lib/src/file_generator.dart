@@ -15,7 +15,8 @@ const String _coreImportUrl = 'dart:core';
 const String _fixnumImportPrefix = r'$fixnum';
 const String _grpcImportUrl = 'package:grpc/service_api.dart';
 const String _protobufImportUrl = 'package:protobuf/protobuf.dart';
-const String _bbcoreImportUrl = 'package:bbcore/bbcore.dart';
+const String _bbcoreImportUrl = 'package:common_core/common_core.dart';
+const String _protobufOptionsImportUrl = 'package:proto_def/src/protobuf_options.dart';
 
 
 const String _typedDataImportPrefix = r'$typed_data';
@@ -627,6 +628,7 @@ class FileGenerator extends ProtobufContainer {
 
     importWriter.addImport(_asyncImportUrl, prefix: asyncImportPrefix);
     importWriter.addImport(_bbcoreImportUrl);
+    importWriter.addImport(_protobufOptionsImportUrl);
     importWriter.addImport(_convertImportUrl, prefix: _convertImportPrefix);
     importWriter.addImport(_coreImportUrl, prefix: coreImportPrefix);
 
