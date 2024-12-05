@@ -160,12 +160,12 @@ class _CustomApiMethod {
     final apiName = convertApiName(_dartName);
     final serviceName = convertServiceName(_serviceName);
     out.addBlock(
-        '$_clientReturnType $apiName($_argumentType request, {$coreImportPrefix.bool toastMessage = true, $coreImportPrefix.bool throwError = true}) async {',
+        '$_clientReturnType $apiName($_argumentType request, {$coreImportPrefix.bool toastMessage = true, $coreImportPrefix.bool throwError = true, $coreImportPrefix.Map<$coreImportPrefix.String, $coreImportPrefix.String>? headers}) async {',
         '}', () {
       
       out.println("$coreImportPrefix.String url = '\${System.domain}$_apiPrefix$serviceName/$apiName';");
       out.println('final proto = ProtobufOptions(requestMessage: request, responseMessage: $_responseType());');
-      out.println('XhrResponse response = await Xhr.postWithPbOptions(url, proto,throwOnError: false);');
+      out.println('XhrResponse response = await Xhr.postWithPbOptions(url, proto, throwOnError: false, headers: headers);');
       out.println('final error = response.error;');
 
       out.addBlock('if (error == null) {', '}', () {
@@ -203,11 +203,11 @@ class _CustomApiMethod {
   void generateTwirpClientStub(IndentingWriter out) {
     out.println();
     out.addBlock(
-        'static $_clientReturnType $_dartName($_argumentType request, {$coreImportPrefix.bool toastMessage = true, $coreImportPrefix.bool throwError = true}) async {',
+        'static $_clientReturnType $_dartName($_argumentType request, {$coreImportPrefix.bool toastMessage = true, $coreImportPrefix.bool throwError = true, $coreImportPrefix.String>? headers}) async {',
         '}', () {
       out.println("$coreImportPrefix.String url = '\${System.domain}$_apiPrefix$_serviceName/$_dartName';");
       out.println('final proto = ProtobufOptions(requestMessage: request, responseMessage: $_responseType());');
-      out.println('XhrResponse response = await Xhr.postWithPbOptions(url, proto,throwOnError: false);');
+      out.println('XhrResponse response = await Xhr.postWithPbOptions(url, proto,throwOnError: false, headers: headers);');
       out.println('if (response.error == null) {');
       out.println('return proto.responseMessage as $_responseType;');
       out.println('}else if(response.error?.code == XhrErrorCode.HttpStatus){');
